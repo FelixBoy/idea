@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="annotations-api">
+    <CLASSES>
+      <root url="jar://F:/bpsuitetomcat/lib/annotations-api.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/catalina-ant.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/catalina-ha.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/catalina-tribes.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/catalina.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/el-api.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/jasper-el.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/jasper-jdt.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/jasper.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/jsp-api.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/servlet-api.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/tomcat-coyote.jar!/" />
+      <root url="jar://F:/bpsuitetomcat/lib/tomcat-dbcp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
