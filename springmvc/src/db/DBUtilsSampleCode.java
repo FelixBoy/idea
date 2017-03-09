@@ -1,39 +1,27 @@
 package db;
 
-import org.apache.commons.dbutils.DbUtils;
+import entity.Test;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.List;
 
 public class DBUtilsSampleCode {
-	  public static void main(String[] args) {  
-	        Connection conn = null;  
-	        String url = "jdbc:mysql://localhost:3306/test?characterEncoding=utf-8";
-	        String jdbcDriver = "com.mysql.jdbc.Driver";  
-	        String user = "root";  
-	        String password = "123456";  
-	  
-	        DbUtils.loadDriver(jdbcDriver);  
-	        try {  
-	            conn = DriverManager.getConnection(url, user, password);  
-	            QueryRunner qr = new QueryRunner();  
+	  public static void main(String[] args) throws  Exception{
+	            QueryRunner qr = new QueryRunner(DBConnUtil.getDataSource());
 	  
 	            /**
 	             * insert delete update 采取如下方法
 	             */
-	            String sql = "insert into test(id,name) values(?,?)";
-//	            String sql = "delete from code";
-	            int inserts = qr.update(conn, sql, "3", "测试3");
-	            System.out.println(inserts);
-	            
+//	            String sql = "insert into test(id,name) values(?,?)";
+//	            int inserts = qr.update(sql, new Object[]{"5", "测试3"});
+//	            System.out.println(inserts);
 	            /**
 	             * 各种查询的使用方法
 	             */
-//	            //1.ArrayHandler 将查询结果的第一行转换为一个数组对象返回
-//	            Object[] objs = runner.query("select * from account where name=?",new ArrayHandler() , "c");
-//	            System.out.println(objs);
+	            //1.ArrayHandler 将查询结果的第一行转换为一个数组对象返回
+//	            Object[] objs = qr.query("select * from test where name like ?",new ArrayHandler() , "测试%");
+//	            System.out.println(objs.length);
 //	             
 //	            //2.ArrayHandler 将查询结果的第一行转换为一个数组对象返回
 //	            List<Object[]> list = runner.query("select * from account",new ArrayListHandler() );
@@ -43,9 +31,13 @@ public class DBUtilsSampleCode {
 //	            Account acc = runner.query("select * from account where name=?",new BeanHandler<Account>(Account.class) , "c");
 //	            System.out.println(acc);
 //	             
-//	            //4.BeanListHandler：将结果集中的每一行数据都封装到一个对应的JavaBean实例中，存放到List里。
-//	            List<Account> acclist = runner.query("select * from account",new BeanListHandler<Account>(Account.class));
-//	            System.out.println(acclist);
+	            //4.BeanListHandler：将结果集中的每一行数据都封装到一个对应的JavaBean实例中，存放到List里。
+	            List<Test> tests = qr.query("select * from test",new BeanListHandler<Test>(Test.class));
+	            System.out.println(tests);
+	            int i = 0;
+                for (Test test:tests){
+                    System.out.println(++i + "  " + test.getId() +"  " + test.getName());
+                }
 //	             
 //	            //5.MapHandler：将结果集中的第一行数据封装到一个Map里，key是列名，value就是对应的值。
 //	            Map map = runner.query("select * from account",new MapHandler() );
@@ -68,10 +60,5 @@ public class DBUtilsSampleCode {
 //	            Long count = (Long)runner.query("select count(*) from account",new ScalarHandler(1) );
 //	            System.out.println(count);
 //	            
-	        } catch (SQLException e) {  
-	            e.printStackTrace();  
-	        } finally {  
-	            DbUtils.closeQuietly(conn);  
-	        }  
 	 }
 }
