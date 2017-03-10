@@ -20,6 +20,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
   </head>
   <body>
-    hello b
+    <%=request.getAttribute("idq")%>
   </body>
 </html>
