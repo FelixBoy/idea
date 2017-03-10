@@ -1,25 +1,61 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Fluid Layout - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="easyui/demo.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+</head>
   <body>
     <%=request.getAttribute("idq")%>
+    <div class="easyui-panel" title="New Topic" style="width:400px">
+        <div style="padding:10px 60px 20px 60px">
+            <form id="ff" method="post">
+                <table cellpadding="5">
+                    <tr>
+                        <td>Name:</td>
+                        <td><input class="easyui-validatebox" type="text" id="name" name="name" data-options="required:true,missingMessage:'请输入姓名'" /></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input class="easyui-validatebox" type="text" id="email" name="email" data-options="validType:'email',invalidMessage:'请输入正确格式的EMail'" /></td>
+                    </tr>
+                    <tr>
+                        <td>Time:</td>
+                        <td><input id="dt" class="easyui-datetimebox" name="birthday"
+                                   data-options="required:true,showSeconds:true,missingMessage:'请选择时间'" style="width:150px">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div style="text-align:center;padding:5px">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function submitForm(){
+            var v = $('#dt').datetimebox('getValue');		         // 获取日期时间输入框的值
+            alert(v);
+            $.post("<%=request.getContextPath()%>/multy.do",
+                {
+                    action:"test",
+                    name:$('#name').val(),
+                    email:$('#email').val(),
+                    datetime:$("#dt").datetimebox('getValue')
+                },
+                function(data,status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+//            $('#ff').form('submit');
+        }
+        function clearForm(){
+            $('#ff').form('clear');
+        }
+    </script>
   </body>
 </html>
