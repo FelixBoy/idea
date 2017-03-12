@@ -1,12 +1,28 @@
 package controller;
+
+import entity.Test;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
-public class SpringMVCController extends MultiActionController {
+//下面的注解，标志这是一个spring中的controller
+@Controller
+@RequestMapping(value = "/home")
+public class SpringMVCController{
+    @RequestMapping("/index")
+    public String index(HttpServletRequest resq, HttpServletResponse resp, @RequestParam(value="id") String id, Test test,Map<String, Object> model){
+        System.out.println("正在执行index方法 id:" + id);
+        System.out.println("Test: " + test);
+        //req.setAttribute("msg", "hello " + name);
+        model.put("msg", "hello " + id);
+        return "index";
+    }
 	public ModelAndView add(HttpServletRequest request,  
             HttpServletResponse response) {
         String idq = request.getParameter("idq");

